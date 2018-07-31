@@ -1,3 +1,8 @@
+[![Build Status](https://travis-ci.org/Ignaciopetru/TrabajoTarjeta2018.svg?branch=master)](https://travis-ci.org/Ignaciopetru/TrabajoTarjeta2018)
+
+#Grupo: Joel Torboli e Ignacio Petruskevicius
+
+
 # Trabajo Tarjeta: Versión 2018
 
 El siguiente trabajo es un enunciado iterativo. Todas las semanas nuevos
@@ -51,4 +56,4 @@ Para correr los tests:
 
 ## Iteracion 2. (14 de Agosto al 28 de Agosto)
 
-... Próximamente :)
+... Próximamente :(
