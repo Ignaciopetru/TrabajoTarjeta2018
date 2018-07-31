@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/Ignaciopetru/TrabajoTarjeta2018.svg?branch=master)](https://travis-ci.org/Ignaciopetru/TrabajoTarjeta2018)
 
-#Grupo: Joel Torboli e Ignacio Petruskevicius
+# Grupo: Joel Torboli e Ignacio Petruskevicius
 
 
 # Trabajo Tarjeta: Versión 2018
