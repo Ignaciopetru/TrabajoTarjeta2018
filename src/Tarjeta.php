@@ -23,4 +23,8 @@ class Tarjeta implements TarjetaInterface {
       return $this->saldo;
     }
 
+    public function restarviaje($valor){
+      $this->saldo -= $valor;
+    }
+
 }
