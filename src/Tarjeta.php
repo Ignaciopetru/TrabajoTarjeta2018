@@ -5,7 +5,7 @@ namespace TrabajoTarjeta;
 class Tarjeta implements TarjetaInterface {
     protected $saldo;
 
-    // Revisa si el monto a cargar es aceptada
+    // Revisa si el monto a cargar es aceptado
     public function recargar($monto) {
       if (in_array($monto, array(10,20,30,50,100))) {
         $this->saldo += $monto;
