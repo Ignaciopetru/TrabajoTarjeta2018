@@ -4,6 +4,7 @@ namespace TrabajoTarjeta;
 
 class Tarjeta implements TarjetaInterface {
     protected $saldo;
+    protected $costo = 14.80;
 
     // Revisa si el monto a cargar es aceptado
     public function recargar($monto) {
@@ -36,6 +37,9 @@ class Tarjeta implements TarjetaInterface {
 
     public function restarviaje($valor){
       $this->saldo -= $valor;
+    }
+    public function obtenerCosto() {
+      return $this->costo;
     }
 
 }
