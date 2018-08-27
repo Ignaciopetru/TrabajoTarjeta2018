@@ -9,25 +9,27 @@ class Tarjeta implements TarjetaInterface {
     public function recargar($monto) {
       if (in_array($monto, array(10,20,30,50,100))) {
         $this->saldo += $monto;
-        if($this->$plus_disponibles != 2){
-          $this->saldo -= (14.8 * $this->plus_disponibles);
-          $this->plus_disponibles -= $this->plus_disponibles;
+        if($this->saldo > 29.60){
+          if($this->$plus_disponibles != 2){
+            $this->saldo -= (14.8 * (2 - $this->plus_disponibles));
+            $this->plus_disponibles = 2;
+          }
         }
         return true;
       }
       else if($monto == 510.15) {
         $this->saldo += ($monto + 81.93);
         if($this->$plus_disponibles != 2){
-          $this->saldo -= (14.8 * $this->plus_disponibles);
-          $this->plus_disponibles -= $this->plus_disponibles;
+          $this->saldo -= (14.8 * (2 - $this->plus_disponibles));
+          $this->plus_disponibles = 2;
         }
         return true;
       }
       else if($monto == 962.59) {
         $this->saldo += ($monto + 221.58);
         if($this->$plus_disponibles != 2){
-          $this->saldo -= (14.8 * $this->plus_disponibles);
-          $this->plus_disponibles -= $this->plus_disponibles;
+          $this->saldo -= (14.8 * (2 - $this->plus_disponibles));
+          $this->plus_disponibles = 2;
         }
         return true;
       }
