@@ -4,5 +4,7 @@ namespace TrabajoTarjeta;
 
 
 class TarjetaLibre extends  Tarjeta {
-    protected $costo = 0;
+  public function restarviaje($valor){
+    $this->saldo -= 0;
+  }
 }
