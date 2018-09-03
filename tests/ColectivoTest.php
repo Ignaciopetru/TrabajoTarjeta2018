@@ -6,10 +6,12 @@ use PHPUnit\Framework\TestCase;
 
 class ColectivoTest extends TestCase {
 
-    public function libreSiempreLibre() {
+    public function testlibreSiempreLibre() {
+        $f = 0;
         $tarjeta = new TarjetaLibre;
-        $colectivo = new Colectivo;
-        for($i=0; $i < 10; $i++){
+        $tarjeta->recargar(14.80);
+        $colectivo = new Colectivo(0,0,0);
+        for($i = 0; $i < 10; $i++){
           if($colectivo->pagarCon($tarjeta) == false){
             $f++;
           }
@@ -17,9 +19,10 @@ class ColectivoTest extends TestCase {
         $this->assertEquals($f, 0);
     }
 
-    public function medioSiempreMedio() {
+    public function testMedioSiempreMedio() {
         $tarjeta = new TarjetaMedio;
-        $colectivo = new Colectivo;
+        $tarjeta->recargar(14.80);
+        $colectivo = new Colectivo(0,0,0);
         $this->assertEquals($colectivo->pagarCon($tarjeta)->obtenerValor(), 14.80/2);
     }
 }
