@@ -30,7 +30,7 @@ class Colectivo implements ColectivoInterface {
       $costo = $tarjeta->obtenerCosto();
       if($saldo >= $costo){
         $tarjeta->restarviaje(14.80);
-        return New Boleto(14.80, $this, $tarjeta);
+        return New Boleto($costo, $this, $tarjeta);
       } else {
         return false;
       }
