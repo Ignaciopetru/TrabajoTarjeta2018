@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class ColectivoTest extends TestCase {
 
+
     public function testlibreSiempreLibre() {
         $f = 0;
         $tarjeta = new TarjetaLibre;
@@ -23,5 +24,25 @@ class ColectivoTest extends TestCase {
         $tarjeta->recargar(30);
         $colectivo = new Colectivo(0,0,0);
         $this->assertEquals($colectivo->pagarCon($tarjeta)->obtenerValor(), 14.80/2);
+
+    public function testHastaDosPLus() {
+        $tarjeta = new Tarjeta;
+        $tarjeta->recargar(20);
+        $tarjeta->restarViaje();
+        $tarjeta->restarViaje();
+        $tarjeta->restarViaje();
+        $this->assertFalse($tarjeta->restarViaje());
+    }
+
+    public function testDescuentoDePLus() {
+        $tarjeta = new Tarjeta;
+        $tarjeta->recargar(20);
+        $tarjeta->restarViaje();
+        $this->assertEquals($tarjeta->mostrarPlus(), 2);
+        $tarjeta->restarViaje();
+        $this->assertEquals($tarjeta->mostrarPlus(), 1);
+        $tarjeta->restarViaje();
+        $this->assertEquals($tarjeta->mostrarPlus(), 0);
+
     }
 }
