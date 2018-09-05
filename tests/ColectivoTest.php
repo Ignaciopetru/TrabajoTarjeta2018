@@ -9,19 +9,20 @@ class ColectivoTest extends TestCase {
     public function testHastaDosPLus() {
         $tarjeta = new Tarjeta;
         $tarjeta->recargar(20);
-        $this->pagarCon($tarjeta);
-        $this->pagarCon($tarjeta);
-        $this->assertFalse($this->pagarCon($tarjeta));
+        $tarjeta->restarViaje();
+        $tarjeta->restarViaje();
+        $tarjeta->restarViaje();
+        $this->assertFalse($tarjeta->restarViaje());
     }
 
     public function testDescuentoDePLus() {
         $tarjeta = new Tarjeta;
         $tarjeta->recargar(20);
-        $this->pagarCon($tarjeta);
-        $this->assertEquals($tarjeta->mostrarplus, 2);
-        $this->pagarCon($tarjeta);
-        $this->assertEquals($tarjeta->mostrarplus, 1);
-        $this->pagarCon($tarjeta);
-        $this->assertEquals($tarjeta->mostrarplus, 0);
+        $tarjeta->restarViaje();
+        $this->assertEquals($tarjeta->mostrarPlus(), 2);
+        $tarjeta->restarViaje();
+        $this->assertEquals($tarjeta->mostrarPlus(), 1);
+        $tarjeta->restarViaje();
+        $this->assertEquals($tarjeta->mostrarPlus(), 0);
     }
 }

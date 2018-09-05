@@ -25,16 +25,12 @@ class Colectivo implements ColectivoInterface {
       return $this->numero;
     }
 
-    public function pagarCon(TarjetaInterface $tarjeta){
-      $saldo = $tarjeta->obtenerSaldo();
-      $plus = $tarjeta->mostrarplus();
-      if($saldo > 14.80){
-        $tarjeta->restarviaje(14.80);
-        return New Boleto(14.80, $this, $tarjeta);
-      }if($saldo < 14.80 && $plus > 0){
-        $tarjeta->restarplus();
-        return New Boleto(14.80, $this, $tarjeta);
-      }else {
+    public function pagarCon(TarjetaInterface $tarjeta) {
+      if($tajeta->mostrarPlus() != 0){
+        $tarjeta->restarViaje();
+        return New Boleto($tarjeta->costo, $this, $tarjeta);
+      }
+      else{
         return false;
       }
     }

@@ -3,14 +3,15 @@
 namespace TrabajoTarjeta;
 
 class Tarjeta implements TarjetaInterface {
+    protected $costo = 14.80;
     protected $saldo;
-    protected $plus_disponibles;
+    protected $plus_disponibles = 2;
     // Revisa si el monto a cargar es aceptado
     public function recargar($monto) {
       if (in_array($monto, array(10,20,30,50,100))) {
         $this->saldo += $monto;
         if($this->saldo > 29.60){
-          if($this->$plus_disponibles != 2){
+          if($this->plus_disponibles != 2){
             $this->saldo -= (14.8 * (2 - $this->plus_disponibles));
             $this->plus_disponibles = 2;
           }
@@ -19,7 +20,7 @@ class Tarjeta implements TarjetaInterface {
       }
       else if($monto == 510.15) {
         $this->saldo += ($monto + 81.93);
-        if($this->$plus_disponibles != 2){
+        if($this->plus_disponibles != 2){
           $this->saldo -= (14.8 * (2 - $this->plus_disponibles));
           $this->plus_disponibles = 2;
         }
@@ -48,11 +49,17 @@ class Tarjeta implements TarjetaInterface {
       return $this->saldo;
     }
 
-    public function restarviaje($valor){
-      $this->saldo -= $valor;
+    public function restarViaje(){
+        if($this->saldo > $this->costo){
+          $this->saldo -= $this->costo;
+        }else if($this->saldo < $this->costo && $this->plus_disponibles > 0){
+          $this->restarPlus();
+        }else {
+          return false;
+        }
     }
 
-    public function restarplus(){
+    public function restarPlus(){
       if($this->plus_disponibles != 0){
         $this->plus_disponibles -= 1;
       }else{
@@ -60,7 +67,7 @@ class Tarjeta implements TarjetaInterface {
       }
     }
 
-    public function mostrarplus(){
+    public function mostrarPlus(){
       return $this->plus_disponibles;
     }
 
