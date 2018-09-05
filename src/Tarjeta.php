@@ -3,9 +3,11 @@
 namespace TrabajoTarjeta;
 
 class Tarjeta implements TarjetaInterface {
+
     protected $costo = 14.80;
     protected $saldo;
     protected $plus_disponibles = 2;
+
     // Revisa si el monto a cargar es aceptado
     public function recargar($monto) {
       if (in_array($monto, array(10,20,30,50,100))) {
@@ -61,6 +63,9 @@ class Tarjeta implements TarjetaInterface {
 
     public function mostrarPlus(){
       return $this->plus_disponibles;
+    }
+    public function obtenerCosto() {
+      return $this->costo;
     }
 
 }
