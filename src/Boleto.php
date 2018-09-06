@@ -18,11 +18,11 @@ class Boleto implements BoletoInterface {
         $this->valor = $valor;
         $this->colectivo = $colectivo;
         $this->fecha = time(); //reemplazar por la clase tiempo
-        $this->tipoTarj = $tarjeta->mostrartipo();
+        $this->tipoTarj = $tarjeta->mostrarTipo();
         $this->saldo = $tarjeta->obtenerSaldo();
-        $this->$idTarj = $tarjeta->obtenerID();
+        $this->idTarj = $tarjeta->obtenerID();
         $this->tipo = $tipo;
-        $this->linea = $colectivo->linea;
+        $this->linea = $colectivo->linea();
     }
 
     /**
