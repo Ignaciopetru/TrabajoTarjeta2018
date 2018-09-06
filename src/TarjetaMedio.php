@@ -7,11 +7,12 @@ class TarjetaMedio extends Tarjeta {
 
   protected $tipo = 'libre';
 
-  public function restarViaje(){
-      if($this->saldo > 7.40){
-        $this->saldo -= 7.40;
+  public function restarViaje($valor){
+    $valor = $valor/2;
+      if($this->saldo > $valor){
+        $this->saldo -= $valor;
         return true;
-      }else if($this->saldo < 7.40 && $this->plus_disponibles > 0){
+      }else if($this->saldo < $valor && $this->plus_disponibles > 0){
         $this->restarPlus();
         return 1;
       }else {

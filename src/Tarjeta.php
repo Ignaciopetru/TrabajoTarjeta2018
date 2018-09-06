@@ -9,7 +9,7 @@ class Tarjeta implements TarjetaInterface {
     protected $plus_disponibles = 2;
     protected $tipo = 'normal';
     protected $id;
-    
+
 
     // Revisa si el monto a cargar es aceptado
     public function recargar($monto) {
@@ -43,11 +43,11 @@ class Tarjeta implements TarjetaInterface {
       return $this->saldo;
     }
 
-    public function restarViaje(){
-        if($this->saldo > 14.80){
-          $this->saldo -= 14.80;
+    public function restarViaje($valor){
+        if($this->saldo > $valor){
+          $this->saldo -= $valor;
           return true;
-        }else if($this->saldo < 14.80 && $this->plus_disponibles > 0){
+        }else if($this->saldo < $valor && $this->plus_disponibles > 0){
           $this->restarPlus();
           return 1;
         }else {
