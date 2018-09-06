@@ -4,8 +4,14 @@ namespace TrabajoTarjeta;
 
 
 class TarjetaMedio extends Tarjeta {
-  protected $costo = 7.40;
   public function restarviaje($valor){
-    $this->saldo -= ($valor/2);
+    $valor = $valor/2;
+    if($this->saldo > $valor){
+      $this->saldo -= $valor;
+    }else if($this->saldo < $valor && $this->plus_disponibles > 0){
+      $this->restarPlus();
+    }else {
+      return false;
     }
+}
 }

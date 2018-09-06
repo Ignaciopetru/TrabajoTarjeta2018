@@ -3,8 +3,6 @@
 namespace TrabajoTarjeta;
 
 class Tarjeta implements TarjetaInterface {
-
-    protected $costo = 14.80;
     protected $saldo;
     protected $plus_disponibles = 2;
 
@@ -43,10 +41,10 @@ class Tarjeta implements TarjetaInterface {
       return $this->saldo;
     }
 
-    public function restarViaje(){
-        if($this->saldo > $this->costo){
-          $this->saldo -= $this->costo;
-        }else if($this->saldo < $this->costo && $this->plus_disponibles > 0){
+    public function restarViaje($valor){
+        if($this->saldo > $valor){
+          $this->saldo -= $valor;
+        }else if($this->saldo < $valor && $this->plus_disponibles > 0){
           $this->restarPlus();
         }else {
           return false;
@@ -64,8 +62,6 @@ class Tarjeta implements TarjetaInterface {
     public function mostrarPlus(){
       return $this->plus_disponibles;
     }
-    public function obtenerCosto() {
-      return $this->costo;
-    }
+
 
 }
