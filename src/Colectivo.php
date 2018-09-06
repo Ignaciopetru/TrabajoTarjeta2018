@@ -6,6 +6,7 @@ class Colectivo implements ColectivoInterface {
     protected $linea;
     protected $empresa;
     protected $numero;
+
     public function __construct($linea, $empresa, $numero){
       $this->$linea = $linea;
       $this->$empresa = $empresa;
@@ -16,7 +17,6 @@ class Colectivo implements ColectivoInterface {
       return $this->linea;
     }
 
-
     public function empresa(){
       return $this->empresa;
     }
@@ -26,16 +26,13 @@ class Colectivo implements ColectivoInterface {
     }
 
     public function pagarCon(TarjetaInterface $tarjeta){
-      $saldo = $tarjeta->obtenerSaldo();
-      $plus = $tarjeta->mostrarplus();
-      if($saldo > 14.80){
-        $tarjeta->restarviaje(14.80);
-        return New Boleto(14.80, $this, $tarjeta);
-      }if($saldo < 14.80 && $plus > 0){
-        $tarjeta->restarplus();
-        return New Boleto(14.80, $this, $tarjeta);
-      }else {
-        return false;
+      $pago = $tarjeta->restarViaje();
+      if($pago == false){
+        return false;//no tiene saldo
+      }else {if($pago == true)
+        return New Boleto(14.80, $this, $tarjeta, 'normal');//boleto normal
+      }else{
+        return New Boleto(14.80, $this, $tarjeta, 'plus');//boleto plus
       }
     }
 

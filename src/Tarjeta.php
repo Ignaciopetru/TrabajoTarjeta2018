@@ -4,9 +4,12 @@ namespace TrabajoTarjeta;
 
 class Tarjeta implements TarjetaInterface {
 
-    protected $costo = 14.80;
+
     protected $saldo;
     protected $plus_disponibles = 2;
+    protected $tipo = 'normal';
+    protected $id;
+    
 
     // Revisa si el monto a cargar es aceptado
     public function recargar($monto) {
@@ -31,9 +34,6 @@ class Tarjeta implements TarjetaInterface {
       return true;
     }
 
-
-
-
     /**
      * Devuelve el saldo que le queda a la tarjeta.
      *
@@ -44,10 +44,12 @@ class Tarjeta implements TarjetaInterface {
     }
 
     public function restarViaje(){
-        if($this->saldo > $this->costo){
-          $this->saldo -= $this->costo;
-        }else if($this->saldo < $this->costo && $this->plus_disponibles > 0){
+        if($this->saldo > 14.80){
+          $this->saldo -= 14.80;
+          return true;
+        }else if($this->saldo < 14.80 && $this->plus_disponibles > 0){
           $this->restarPlus();
+          return 1;
         }else {
           return false;
         }
@@ -66,6 +68,14 @@ class Tarjeta implements TarjetaInterface {
     }
     public function obtenerCosto() {
       return $this->costo;
+    }
+
+    public function mostrartipo(){
+      return $this->tipo;
+    }
+
+    public function obtenerID(){
+      return $this->id;
     }
 
 }
