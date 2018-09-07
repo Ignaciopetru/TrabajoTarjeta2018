@@ -5,6 +5,7 @@ namespace TrabajoTarjeta;
 class Tarjeta implements TarjetaInterface {
     protected $saldo;
     protected $plus_disponibles = 2;
+    
 
     // Revisa si el monto a cargar es aceptado
     public function recargar($monto) {
