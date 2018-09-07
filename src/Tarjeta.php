@@ -9,6 +9,7 @@ class Tarjeta implements TarjetaInterface {
     protected $plus_disponibles = 2;
     protected $tipo = 'normal';
     protected $id;
+    protected $recarga_plus = 0;//0 no recargo plus, 1 1, 2 2
 
 
     // Revisa si el monto a cargar es aceptado
@@ -25,9 +26,14 @@ class Tarjeta implements TarjetaInterface {
       else {
         return false;
       }
-      if($this->saldo > 29.60){
+      if($this->saldo > ($costo*2)){
         if($this->plus_disponibles != 2){
           $this->saldo -= (14.8 * (2 - $this->plus_disponibles));
+          if($this->plus_disponibles == 0){
+            $recarga_plus = 2;
+          }else {
+            $recarga_plus = 1;
+          }
           $this->plus_disponibles = 2;
         }
       }
@@ -76,6 +82,26 @@ class Tarjeta implements TarjetaInterface {
 
     public function obtenerID(){
       return $this->id;
+    }
+/*
+    public function obtenerRecargaPlus(){
+      return $this->recarga_plus;
+    }
+
+    public function resetearRecargaPlus(){
+      $this->recarga_plus = 0;
+    }
+*/
+    public function abonado(){ //al recargar se llama y calcula el monto total del viaje
+      if($this->recarga_plus == 0){
+        return $this->costo;
+      }else if($this->recarga_plus == 1){
+        $this->recarga_plus = 0;
+        return ($this->costo * 2);
+      }else{
+        $this->recarga_plus = 0;
+        return ($this->costo * 3);
+      }
     }
 
 }

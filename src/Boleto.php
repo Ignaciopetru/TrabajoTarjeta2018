@@ -23,6 +23,7 @@ class Boleto implements BoletoInterface {
         $this->idTarj = $tarjeta->obtenerID();
         $this->tipo = $tipo;
         $this->linea = $colectivo->linea();
+        $this->abonado = $tarjeta->abonado();
     }
 
     /**
