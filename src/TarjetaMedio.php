@@ -5,13 +5,13 @@ namespace TrabajoTarjeta;
 
 class TarjetaMedio extends Tarjeta {
   protected $ultimoPago;
-  public function restarviaje($valor){
-    $valor = $valor/2;
+  protected $costo = 7.40;
+  public function restarviaje(){
     if($this->sePuedePagar()){
-      if($this->saldo > $valor){
-        $this->saldo -= $valor;
+      if($this->saldo > $this->costo){
+        $this->saldo -= $this->costo;
         $this->ultimoPago = time();
-      }else if($this->saldo < $valor && $this->plus_disponibles > 0){
+      }else if($this->saldo < $this->costo && $this->plus_disponibles > 0){
         $this->restarPlus();
         $this->ultimoPago = time();
       }else {

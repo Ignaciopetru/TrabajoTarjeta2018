@@ -27,10 +27,13 @@ class Colectivo implements ColectivoInterface {
 
     public function pagarCon(TarjetaInterface $tarjeta){
 
-      if($tarjeta->restarviaje(14.80) == false){
-        return New Boleto(14.80, $this, $tarjeta);
-      }else{
+      $pago = $tarjeta->restarViaje();
+      if($pago == false){
         return false;
+      }else if($pago == true){
+        return New Boleto($tajeta->obtenerCosto(), $this, $tarjeta, 'normal'); // boleto normal
+      }else{
+        return New Boleto($tarjeta->obtenerCosto(), $this, $tarjeta, 'plus');
       }
     }
 
