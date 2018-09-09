@@ -16,7 +16,7 @@ class ColectivoTest extends TestCase {
             $f++;
           }
         }
-        $this->assertEquals($f, 8); // Como la cantidad de viajes plus esta inicializada en 2 se espera que habra al menos dos boletos plus
+        $this->assertEquals($f, 10);
     }
 
     public function testMedioSiempreMedio() {
