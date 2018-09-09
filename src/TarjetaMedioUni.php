@@ -36,7 +36,7 @@ class TarjetaMedio extends Tarjeta {
   }
   public function sePuedePagar(){
     $ahora = time();
-    if(date('d', $ahora) == date('d', $this->ultimoPagoMedio) + 1){
+    if(date('d', $ahora) == (date('d', $this->ultimoPagoMedio) + 1)){
     $this->mediosDisponibles = 2;
     }
     if(($ahora - $this->ultimoPago) > 300 && $this->mediosDisponibles != 0){
