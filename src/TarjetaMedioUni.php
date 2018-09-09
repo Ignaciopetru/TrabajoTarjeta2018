@@ -17,9 +17,20 @@ class TarjetaMedio extends Tarjeta {
       }else {
         return false;
       }
+    }else{
+      $valor = $valor * 2;
+      if($this->saldo > $valor){
+        $this->saldo -= $valor;
+        $this->ultimoPago = time();
+      }else if($this->saldo < $valor && $this->plus_disponibles > 0){
+        $this->restarPlus();
+        $this->ultimoPago = time();
+      }else {
+        return false;
+      }
     }
   }
-  public function sePuedePagar(){
+  public function sePuedePagar(){//cambiarrrrr
     $ahora = time();
     if(($ahora - $this->ultimoPago) > 300){
       return true;
