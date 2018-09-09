@@ -3,7 +3,8 @@
 namespace TrabajoTarjeta;
 
 
-class TarjetaMedio extends Tarjeta {
+class TarjetaMedioUni extends Tarjeta {
+  protected $tipo = 'medio';
   protected $ultimoPago;
   protected $ultimoPagoMedio;
   protected $mediosDisponibles = 2;
@@ -24,7 +25,7 @@ class TarjetaMedio extends Tarjeta {
     }else{
       $normal = $this->costo * 2;
       if($this->saldo > $normal){
-        $this->saldo -= $normal);
+        $this->saldo -= $normal;
         $this->ultimoPago = time();
       }else if($this->saldo < $normal && $this->plus_disponibles > 0){
         $this->restarPlus();
