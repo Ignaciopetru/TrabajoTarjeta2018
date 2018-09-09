@@ -36,7 +36,7 @@ class TarjetaMedio extends Tarjeta {
   }
   public function sePuedePagar(){
     $ahora = time();
-    if($ahora - $this->ultimoPagoMedio > 86400){  // Un dia tiene 86400 segundos
+    if(date('d', $ahora) == date('d', $this->ultimoPagoMedio) + 1){
     $this->mediosDisponibles = 2;
     }
     if(($ahora - $this->ultimoPago) > 300 && $this->mediosDisponibles != 0){
