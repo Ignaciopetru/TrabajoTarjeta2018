@@ -4,6 +4,12 @@ namespace TrabajoTarjeta;
 
 
 class TarjetaMedio extends Tarjeta {
+
+
+
+  protected $tipo = 'libre';
+
+
   protected $ultimoPago;
   protected $costo = 7.40;
   public function restarviaje(){
@@ -27,4 +33,5 @@ class TarjetaMedio extends Tarjeta {
       return false;
     }
   }
+
 }

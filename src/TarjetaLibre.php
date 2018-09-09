@@ -5,7 +5,9 @@ namespace TrabajoTarjeta;
 
 class TarjetaLibre extends Tarjeta {
 
-  protected $costo = 14.80;
+
+  protected $costo = 0;
+
   protected $tipo = 'libre';
 
 }
