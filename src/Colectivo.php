@@ -31,13 +31,10 @@ class Colectivo implements ColectivoInterface {
       if($pago == false){
         return false;//no tiene saldo
       }else if($pago == true){
-          return New Boleto($tarjeta->obtenerCosto(), $this, $tarjeta, 'normal');//boleto normal
+        return New Boleto($tarjeta->obtenerCosto(), $this, $tarjeta, 'normal');//boleto normal
       }else{
         return New Boleto($tarjeta->obtenerCosto(), $this, $tarjeta, 'plus');//boleto plus
 
-
-
       }
     }
-
 }

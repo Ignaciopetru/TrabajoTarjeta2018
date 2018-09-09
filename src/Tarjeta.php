@@ -87,7 +87,7 @@ class Tarjeta implements TarjetaInterface {
     }
     public function obtenerID(){
       return $this->id;
-
+    }
     /*
     public function obtenerRecargaPlus(){
       return $this->recarga_plus;
@@ -98,43 +98,15 @@ class Tarjeta implements TarjetaInterface {
     */
 
     public function abonado(){ //al recargar se llama y calcula el monto total del viaje
-      if($this->recarga_plus == 0){
-        return $this->costo;
-      }else if($this->recarga_plus == 1){
-         $this->recarga_plus = 0;
-         return ($this->costo * 2);
-      }else{
-        $this->recarga_plus = 0;
-        return ($this->costo * 3);
-        }
+        if($this->recarga_plus == 0){
+          return $this->costo;
+        }else if($this->recarga_plus == 1){
+          $this->recarga_plus = 0;
+          return ($this->costo * 2);
+        }else{
+          $this->recarga_plus = 0;
+          return ($this->costo * 3);
+          }
       }
-
-    public function mostrarTipo(){
-      return $this->tipo;
-    }
-
-    public function obtenerID(){
-      return $this->id;
-    }
-/*
-    public function obtenerRecargaPlus(){
-      return $this->recarga_plus;
-    }
-
-    public function resetearRecargaPlus(){
-      $this->recarga_plus = 0;
-    }
-*/
-    public function abonado(){ //al recargar se llama y calcula el monto total del viaje
-      if($this->recarga_plus == 0){
-        return $this->costo;
-      }else if($this->recarga_plus == 1){
-        $this->recarga_plus = 0;
-        return ($this->costo * 2);
-      }else{
-        $this->recarga_plus = 0;
-        return ($this->costo * 3);
-      }
-    }
-
 }
+

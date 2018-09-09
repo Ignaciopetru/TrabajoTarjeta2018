@@ -33,6 +33,7 @@ class TarjetaMedio extends Tarjeta {
         return false;
       }
     }
+    return true;
   }
   public function sePuedePagar(){
     $ahora = time();
