@@ -3,7 +3,7 @@
 namespace TrabajoTarjeta;
 
 class Tarjeta implements TarjetaInterface {
-
+    
     protected $costo = 14.80;
     protected $saldo;
     protected $plus_disponibles = 2;
@@ -28,7 +28,11 @@ class Tarjeta implements TarjetaInterface {
       }
       if($this->saldo > ($this->costo*2)){
         if($this->plus_disponibles != 2){
-          $this->saldo -= (14.8 * (2 - $this->plus_disponibles));
+
+
+
+          $this->saldo -= ($this->costo * (2 - $this->plus_disponibles));
+
           if($this->plus_disponibles == 0){
             $recarga_plus = 2;
           }else {
@@ -50,6 +54,7 @@ class Tarjeta implements TarjetaInterface {
     }
 
     public function restarViaje(){
+
         if($this->saldo > $this->costo){
           $this->saldo -= $this->costo;
           return true;
@@ -59,6 +64,7 @@ class Tarjeta implements TarjetaInterface {
         }else {
           return false;
         }
+
     }
 
     public function restarPlus(){
@@ -72,9 +78,36 @@ class Tarjeta implements TarjetaInterface {
     public function mostrarPlus(){
       return $this->plus_disponibles;
     }
+
     public function obtenerCosto() {
       return $this->costo;
     }
+    public function mostrarTipo(){
+      return $this->tipo;
+    }
+    public function obtenerID(){
+      return $this->id;
+
+    /*
+    public function obtenerRecargaPlus(){
+      return $this->recarga_plus;
+    }
+    public function resetearRecargaPlus(){
+      $this->recarga_plus = 0;
+    }
+    */
+
+    public function abonado(){ //al recargar se llama y calcula el monto total del viaje
+      if($this->recarga_plus == 0){
+        return $this->costo;
+      }else if($this->recarga_plus == 1){
+         $this->recarga_plus = 0;
+         return ($this->costo * 2);
+      }else{
+        $this->recarga_plus = 0;
+        return ($this->costo * 3);
+        }
+      }
 
     public function mostrarTipo(){
       return $this->tipo;
