@@ -5,7 +5,7 @@ namespace TrabajoTarjeta;
 class Tarjeta implements TarjetaInterface {
     
     protected $costo = 14.80;
-    protected $saldo;
+    protected $saldo = 0;
     protected $plus_disponibles = 2;
     protected $tipo = 'normal';
     protected $id;
@@ -28,11 +28,7 @@ class Tarjeta implements TarjetaInterface {
       }
       if($this->saldo > ($this->costo*2)){
         if($this->plus_disponibles != 2){
-
-
-
           $this->saldo -= ($this->costo * (2 - $this->plus_disponibles));
-
           if($this->plus_disponibles == 0){
             $recarga_plus = 2;
           }else {
@@ -61,7 +57,7 @@ class Tarjeta implements TarjetaInterface {
         }else if($this->saldo < $this->costo && $this->plus_disponibles > 0){
           $this->restarPlus();
           return 1;
-        }else {
+        }else{
           return false;
         }
 

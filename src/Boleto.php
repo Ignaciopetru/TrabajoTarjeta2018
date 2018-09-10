@@ -53,6 +53,10 @@ class Boleto implements BoletoInterface {
         return $this->tipoTarj;
     }
 
+    public function obtenerTipo() {
+        return $this->tipo;
+    }
+
     public function obtenerLinea() {
         return $this->linea;
     }
