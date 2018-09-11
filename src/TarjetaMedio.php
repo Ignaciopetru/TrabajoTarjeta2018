@@ -4,25 +4,25 @@ namespace TrabajoTarjeta;
 
 
 class TarjetaMedio extends Tarjeta {
-
-
-
-  protected $tipo = 'libre';
-
-
+  protected $tipo = 'medio';
   protected $ultimoPago;
   protected $costo = 7.40;
+
   public function restarviaje(){
-    if($this->sePuedePagar()){
+    if($this->sePuedePagar() === true){
       if($this->saldo > $this->costo){
         $this->saldo -= $this->costo;
         $this->ultimoPago = time();
+        return true;
       }else if($this->saldo < $this->costo && $this->plus_disponibles > 0){
         $this->restarPlus();
         $this->ultimoPago = time();
+        return 1;
       }else {
         return false;
       }
+    }else{
+      return false;
     }
   }
   public function sePuedePagar(){

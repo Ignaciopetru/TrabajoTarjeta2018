@@ -3,30 +3,34 @@
 namespace TrabajoTarjeta;
 
 
-class TarjetaMedio extends Tarjeta {
+class TarjetaMedioUni extends Tarjeta {
+  protected $tipo = 'medio';
   protected $ultimoPago;
   protected $ultimoPagoMedio;
   protected $mediosDisponibles = 2;
   protected $costo = 7.40;
   public function restarviaje(){
-    if($this->sePuedePagar()){
+    if($this->sePuedePagar() === true){
+      $this->costo = 7.40;
       if($this->saldo > $this->costo){
         $this->saldo -= $this->costo;
         $this->ultimoPago = time();
         $this->ultimoPagoMedio = time();
         $this->mediosDisponibles -= 1;
+        return true;
       }else if($this->saldo < $this->costo && $this->plus_disponibles > 0){
         $this->restarPlus();
         $this->ultimoPago = time();
+        return 1;
       }else {
         return false;
       }
     }else{
-      $normal = $this->costo * 2;
-      if($this->saldo > $normal){
-        $this->saldo -= $normal);
+      $this->costo = 14.80;
+      if($this->saldo > $this->costo){
+        $this->saldo -= $this->costo;
         $this->ultimoPago = time();
-      }else if($this->saldo < $normal && $this->plus_disponibles > 0){
+      }else if($this->saldo < $this->costo && $this->plus_disponibles > 0){
         $this->restarPlus();
         $this->ultimoPago = time();
       }else {
