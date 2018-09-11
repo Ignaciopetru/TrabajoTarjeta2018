@@ -20,6 +20,25 @@ class TarjetaTest extends TestCase {
 
         $this->assertTrue($tarjeta->recargar(510.15));
         $this->assertEquals($tarjeta->obtenerSaldo(), 622.08);
+
+        $this->assertTrue($tarjeta->recargar(962.59));
+        $this->assertEquals($tarjeta->obtenerSaldo(), 622.08);
+    }
+
+    public function testCargaPlus(){
+        $tarjeta = new Tarjeta;
+        
+        $tarjeta->restarViaje();
+        $tarjeta->restarViaje();
+        $this->assertFalse($tarjeta->restarPlus());
+        $tarjeta->recargar(50);
+        $this->assertEquals($tarjeta->mostrarPlus(), 2); 
+
+        $tarjeta->restarViaje();
+        $tarjeta->restarViaje();
+        $this->assertEquals($tarjeta->mostrarPlus(), 1); 
+        $tarjeta->recargar(50);
+        $this->assertEquals($tarjeta->mostrarPlus(), 2);
     }
 
     /**
@@ -31,4 +50,6 @@ class TarjetaTest extends TestCase {
       $this->assertFalse($tarjeta->recargar(15));
       $this->assertEquals($tarjeta->obtenerSaldo(), 0);
   }
+
+    
 }
