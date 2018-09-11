@@ -44,6 +44,11 @@ class ColectivoTest extends TestCase {
         $this->assertEquals($tarjeta->mostrarPlus(), 1);
         $tarjeta->restarViaje();
         $this->assertEquals($tarjeta->mostrarPlus(), 0);
+    }
 
+    public function testObtenerInfo(){
+        $colectivo = new Colectivo(142, 'rosario bus', 55);
+        $this->assertEquals('rosario bus', $colectivo->empresa());
+        $this->assertEquals(55, $colectivo->numero());
     }
 }
