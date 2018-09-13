@@ -47,11 +47,11 @@ class TarjetaTest extends TestCase {
         $tarjeta->restarViaje();
         $tarjeta->recargar(50);
         $tarjeta->restarViaje();
-        $this->assertEquals($tarjeta->abonado(), $tarjeta->obtenerCosto() * 3);
+        $this->assertEquals($tarjeta->abonado(), ($tarjeta->obtenerCosto() * 3));
 
         $tarjeta->restarViaje();
         $tarjeta->recargar(50);
-        $this->assertEquals($tarjeta->abonado(), $tarjeta->obtenerCosto() * 2);
+        $this->assertEquals($tarjeta->abonado(), ($tarjeta->obtenerCosto() * 2));
     }
 
     /**
