@@ -3,7 +3,7 @@
 namespace TrabajoTarjeta;
 
 class Tarjeta implements TarjetaInterface {
-    
+
     protected $tiempo;
     protected $costo = 14.80;
     protected $saldo = 0;
@@ -109,9 +109,9 @@ class Tarjeta implements TarjetaInterface {
     */
 
     public function abonado(){ //al recargar se llama y calcula el monto total del viaje
-        if($this->recarga_plus == 0){
+        if($this->recarga_plus === 0){
           return $this->costo;
-        }else if($this->recarga_plus == 1){
+        }else if($this->recarga_plus === 1){
           $this->recarga_plus = 0;
           return ($this->costo * 2);
         }else{
@@ -120,4 +120,3 @@ class Tarjeta implements TarjetaInterface {
           }
       }
 }
-
