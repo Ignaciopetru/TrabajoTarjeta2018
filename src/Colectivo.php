@@ -7,7 +7,7 @@ class Colectivo implements ColectivoInterface {
     protected $empresa;
     protected $numero;
 
-    public function __construct($linea, $empresa, $numero){
+    public function __construct($linea = 0, $empresa = 0, $numero = 0){
       $this->linea = $linea;
       $this->empresa = $empresa;
       $this->numero = $numero;

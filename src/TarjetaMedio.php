@@ -12,11 +12,11 @@ class TarjetaMedio extends Tarjeta {
     if($this->sePuedePagar() === true){
       if($this->saldo > $this->costo){
         $this->saldo -= $this->costo;
-        $this->ultimoPago = time();
+        $this->ultimoPago = $this->obtenerTiempo();
         return true;
       }else if($this->saldo < $this->costo && $this->plus_disponibles > 0){
         $this->restarPlus();
-        $this->ultimoPago = time();
+        $this->ultimoPago = $this->obtenerTiempo();
         return 1;
       }else {
         return false;
@@ -26,8 +26,8 @@ class TarjetaMedio extends Tarjeta {
     }
   }
   public function sePuedePagar(){
-    $ahora = time();
-    if(($ahora - $this->ultimoPago) > 300){
+    $ahora = $this->obtenerTiempo();
+    if(($ahora - $this->ultimoPago) >= 300){
       return true;
     }else{
       return false;

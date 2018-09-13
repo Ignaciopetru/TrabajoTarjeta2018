@@ -4,6 +4,7 @@ namespace TrabajoTarjeta;
 
 class Tarjeta implements TarjetaInterface {
     
+    protected $tiempo;
     protected $costo = 14.80;
     protected $saldo = 0;
     protected $plus_disponibles = 2;
@@ -11,6 +12,9 @@ class Tarjeta implements TarjetaInterface {
     protected $id;
     protected $recarga_plus = 0;//0 no recargo plus, 1 1, 2 2
 
+    public function __construct($tiempo = 0) {
+      $this->tiempo = $tiempo;
+    }
 
     // Revisa si el monto a cargar es aceptado
     public function recargar($monto) {
@@ -84,6 +88,17 @@ class Tarjeta implements TarjetaInterface {
     public function obtenerID(){
       return $this->id;
     }
+
+    public function obtenerTiempo() {
+      return $this->tiempo->time();
+    }
+
+    public function avanzarTiempo($tiempo) {
+      return $this->tiempo->avanzar($tiempo);
+    }
+
+
+
     /*
     public function obtenerRecargaPlus(){
       return $this->recarga_plus;

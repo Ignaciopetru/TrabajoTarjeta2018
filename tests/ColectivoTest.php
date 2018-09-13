@@ -10,7 +10,7 @@ class ColectivoTest extends TestCase {
     public function testlibreSiempreLibre() {
         $f = 0;
         $tarjeta = new TarjetaLibre;
-        $colectivo = new Colectivo(0,0,0);
+        $colectivo = new Colectivo;
         for($i = 0; $i < 10; $i++){
           if($colectivo->pagarCon($tarjeta) == false){
             $f++;
@@ -20,9 +20,11 @@ class ColectivoTest extends TestCase {
     }
 
     public function testMedioSiempreMedio() {
-        $tarjeta = new TarjetaMedio;
+        $tiempo = new TiempoFalso;
+        $tarjeta = new TarjetaMedio($tiempo);
         $tarjeta->recargar(30);
-        $colectivo = new Colectivo(0,0,0);
+        $colectivo = new Colectivo;
+        $tarjeta->avanzarTiempo(300);
         $this->assertEquals($colectivo->pagarCon($tarjeta)->obtenerValor(), 14.80/2);
     }
 
