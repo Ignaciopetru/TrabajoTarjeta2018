@@ -9,8 +9,8 @@ class BoletoTest extends TestCase {
     public function testSaldoCero() {
         $tarjeta = new Tarjeta;
         $colectivo = new Colectivo;
-        $boleto = new Boleto($tarjeta->obtenerCosto(), $colectivo, $tarjeta, 0);
 
+        $boleto = new Boleto($tarjeta->obtenerCosto(), $colectivo, $tarjeta, 0);
         $this->assertEquals($boleto->obtenerValor(), $tarjeta->obtenerCosto());
     }
 
@@ -18,10 +18,13 @@ class BoletoTest extends TestCase {
         $tarjeta = new Tarjeta;
         $tarjeta->recargar(30);
         $colectivo = new Colectivo;
+
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerTipoTarj(), 'normal');
+
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerTipo(), 'normal');
+
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerTipo(), 'plus');
     }
@@ -32,9 +35,11 @@ class BoletoTest extends TestCase {
         $tarjeta->recargar(10);
         $colectivo = new Colectivo;
         $tarjeta->avanzarTiempo(300);
+
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerTipoTarj(), 'medio');
         $this->assertEquals($boleto->obtenerTipo(), 'normal');
+        
         $tarjeta->avanzarTiempo(300);
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerTipo(), 'plus');
@@ -80,8 +85,9 @@ class BoletoTest extends TestCase {
         $tarjeta = new TarjetaMedio($tiempo);
         $tarjeta->recargar(50);
         $colectivo = new Colectivo;
-        $tarjeta->avanzarTiempo(300);
         $boleto = $colectivo->pagarCon($tarjeta);
-        $this->assertFalse($colectivo->pagarCon($tarjeta));
+        // $tarjeta->avanzarTiempo(300);
+        $boleto = $colectivo->pagarCon($tarjeta);
+        $this->assertFalse($boleto);
     }
 }
