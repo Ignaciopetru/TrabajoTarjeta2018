@@ -47,7 +47,7 @@ class TarjetaTest extends TestCase {
         $tarjeta->restarViaje();
         $tarjeta->recargar(50);
         $tarjeta->restarViaje();
-      $this->assertEquals($tarjeta->abonado(), 14.8/*($tarjeta->obtenerCosto() * 3)*/);
+        $this->assertEquals($tarjeta->abonado(), 14.8/*($tarjeta->obtenerCosto() * 3)*/);
 
         $tarjeta->restarViaje();
         $tarjeta->recargar(50);

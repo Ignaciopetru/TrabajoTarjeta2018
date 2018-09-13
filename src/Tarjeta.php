@@ -33,7 +33,7 @@ class Tarjeta implements TarjetaInterface {
       if($this->saldo > ($this->costo*2)){
         if($this->plus_disponibles != 2){
           $this->saldo -= ($this->costo * (2 - $this->plus_disponibles));
-          if($this->plus_disponibles == 0){
+          if($this->plus_disponibles === 0){
             $recarga_plus = 2;
           }else {
             $recarga_plus = 1;
