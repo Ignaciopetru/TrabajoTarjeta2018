@@ -40,6 +40,19 @@ class TarjetaTest extends TestCase {
         $tarjeta->recargar(50);
         $this->assertEquals($tarjeta->mostrarPlus(), 2);
     }
+    public function testAbonado(){
+        $tarjeta = new Tarjeta;
+
+        $tarjeta->restarViaje();
+        $tarjeta->restarViaje();
+        $tarjeta->recargar(50);
+        $tarjeta->restarViaje();
+        $this->assertEquals($tarjeta->abonado(), $tarjeta->obtenerCosto() * 3);
+
+        $tarjeta->restarViaje();
+        $tarjeta->recargar(50);
+        $this->assertEquals($tarjeta->abonado(), $tarjeta->obtenerCosto() * 2);
+    }
 
     /**
      * Comprueba que la tarjeta no puede cargar saldos invalidos.

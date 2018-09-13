@@ -27,6 +27,12 @@ class BoletoTest extends TestCase {
 
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerTipo(), 'plus');
+
+        $this->assertEquals($boleto->obtenerColectivo(), $colectivo);
+        $this->assertEquals($boleto->obtenerLinea(), $colectivo->linea());
+        $this->assertEquals($boleto->obtenerAbonado(), $tarjeta->abonado());
+        $this->assertEquals($boleto->obtenerSaldo(), $tarjeta->obtenerSaldo());
+        $this->assertEquals($boleto->obtenerIDTarj(), $tarjeta->obtenerID());
     }
 
     public function testBoletoMedio() {
@@ -39,7 +45,7 @@ class BoletoTest extends TestCase {
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerTipoTarj(), 'medio');
         $this->assertEquals($boleto->obtenerTipo(), 'normal');
-        
+
         $tarjeta->avanzarTiempo(300);
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerTipo(), 'plus');
@@ -56,7 +62,7 @@ class BoletoTest extends TestCase {
         $this->assertEquals($boleto->obtenerTipoTarj(), 'medio');
         $this->assertEquals($boleto->obtenerTipo(), 'normal');
         $this->assertEquals($boleto->obtenerValor(), 7.40);
-        
+
         $tarjeta->avanzarTiempo(300);
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerTipo(), 'normal');
@@ -69,6 +75,16 @@ class BoletoTest extends TestCase {
         $tarjeta->avanzarTiempo(86400);
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerValor(), 7.40);
+
+        $tarjeta2 = new TarjetaMedioUni($tiempo);
+        $tarjeta2->recargar(10);
+        $tarjeta2->restarViaje();
+        $tarjeta2->avanzarTiempo(86600);
+        $this->assertEquals($tarjeta2->restarViaje(), 1);
+        $tarjeta2->avanzarTiempo(86600);
+        $tarjeta2->restarViaje();
+        $this->assertFalse($tarjeta2->restarViaje());
+
     }
 
     public function testBoletoLibre() {
