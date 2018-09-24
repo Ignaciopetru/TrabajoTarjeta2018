@@ -10,7 +10,7 @@ class TarjetaMedio extends Tarjeta {
 
   public function restarViaje($colectivo){
     if($this->sePuedeTransbordo($colectivo)){
-      $this->costo = $this->costo * 0.77;
+      $this->costo = $this->costo * 0.33;
       $this->saldo -= $this->costo;
       $this->ultimoColectivo = $colectivo;
       $this->ultimoPago = $this->obtenerTiempo();

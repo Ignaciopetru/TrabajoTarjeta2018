@@ -59,13 +59,14 @@ class Tarjeta implements TarjetaInterface {
     }
 
     public function restarViaje($colectivo){
+      $this->costo = 14.80;
       if($this->sePuedeTransbordo($colectivo)){
-        $this->costo = $this->costo * 0.77;
+        $this->costo = $this->costo * 0.33;
         $this->saldo -= $this->costo;
         $this->ultimoColectivo = $colectivo;
         $this->ultimoPago = $this->obtenerTiempo();
         $this->ultimoTrasbordo = False; 
-        return true;
+        return 't';
       }else{
         if($this->saldo > $this->costo){
           $this->saldo -= $this->costo;
@@ -77,7 +78,7 @@ class Tarjeta implements TarjetaInterface {
           $this->restarPlus();
           $this->ultimoColectivo = $colectivo;
           $this->ultimoPago = $this->obtenerTiempo();
-          return 1;
+          return 'p';
         }else{
           return false;
       }
@@ -127,7 +128,7 @@ class Tarjeta implements TarjetaInterface {
       }
 
     public function sePuedeTransbordo($colectivo){
-          if($colectivo->linea() != $this->ultimoColectivo->linea() && $this->ultimoTrasbordo == true && $this->saldo < $this->costo){
+          if($colectivo->linea() != $this->ultimoColectivo->linea() && $this->ultimoTrasbordo === true && $this->saldo > $this->costo){
             $dia = date('w', $this->obtenerTiempo());
             $hora = date('G', $this->obtenerTiempo());
 

@@ -16,7 +16,7 @@ class ColectivoTest extends TestCase {
             $f++;
           }
         }
-        $this->assertEquals($f, 10);
+        $this->assertEquals($f, 8);
     }
 
     public function testMedioSiempreMedio() {
