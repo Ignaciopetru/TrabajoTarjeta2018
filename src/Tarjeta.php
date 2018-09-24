@@ -14,6 +14,7 @@ class Tarjeta implements TarjetaInterface {
     protected $ultimoColectivo;
     protected $ultimoTrasbordo = false; //true el ultimo fue trasbordo false no
     protected $ultimoPago;
+    protected $feriados = {};
 
     public function __construct($tiempo = 0) {
       $this->tiempo = $tiempo;
@@ -138,8 +139,12 @@ class Tarjeta implements TarjetaInterface {
             if($dia == 6 && $hora > 14 && $hora < 22 && ($this->obtenerTiempo - $this->ultimoPago) < 5400){
               return true;
             }
+            if(($dia == 0 || esFeriado(date(z, $this->obtenerTiempo()));) && $hora > 6 && $hora < 22 && ($this->obtenerTiempo - $this->ultimoPago) < 5400){
+              return true;
+            }
           }
-
-
+      }
+      protected function esFeriado($dia){
+        array_search($dia, $this->feriados) != null;
       }
 }
