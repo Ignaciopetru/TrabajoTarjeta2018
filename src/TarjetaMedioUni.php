@@ -15,7 +15,8 @@ class TarjetaMedioUni extends Tarjeta {
       $this->saldo -= $this->costo;
       $this->ultimoColectivo = $colectivo;
       $this->ultimoPago = $this->obtenerTiempo();
-      return true;
+      $this->ultimoTrasbordo = False; 
+      return 't';
     }else{
       if($this->sePuedePagar() === true){
         $this->costo = 7.40;
@@ -24,11 +25,12 @@ class TarjetaMedioUni extends Tarjeta {
           $this->ultimoPago = $this->obtenerTiempo();
           $this->ultimoPagoMedio = $this->obtenerTiempo();
           $this->mediosDisponibles -= 1;
+          $this->ultimoTrasbordo = True; 
           return true;
         }else if($this->saldo < $this->costo && $this->plus_disponibles > 0){
           $this->restarPlus();
           $this->ultimoPago = $this->obtenerTiempo();
-          return 1;
+          return 'p';
         }else {
           return false;
         }

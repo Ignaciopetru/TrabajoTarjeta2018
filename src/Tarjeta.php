@@ -64,6 +64,7 @@ class Tarjeta implements TarjetaInterface {
         $this->saldo -= $this->costo;
         $this->ultimoColectivo = $colectivo;
         $this->ultimoPago = $this->obtenerTiempo();
+        $this->ultimoTrasbordo = False; 
         return true;
       }else{
         if($this->saldo > $this->costo){
@@ -131,7 +132,7 @@ class Tarjeta implements TarjetaInterface {
             $hora = date('G', $this->obtenerTiempo());
 
             if($dia > 0 && $dia < 6 && $hora > 6 && $hora < 22 && ($this->obtenerTiempo - $this->ultimoPago) < 3600){
-                return true;
+              return true;
             }
             if($dia == 6 && $hora > 6 && $hora < 14 && ($this->obtenerTiempo - $this->ultimoPago) < 3600){
               return true;
