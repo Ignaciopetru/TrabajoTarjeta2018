@@ -17,7 +17,7 @@ class BoletoTest extends TestCase {
     public function testBoletoNormal() {
         $tarjeta = new Tarjeta;
         $tarjeta->recargar(30);
-        $colectivo = new Colectivo;
+        $colectivo = new Colectivo(142, "Metrobus", 3541);
 
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerTipoTarj(), 'normal');
@@ -78,12 +78,12 @@ class BoletoTest extends TestCase {
 
         $tarjeta2 = new TarjetaMedioUni($tiempo);
         $tarjeta2->recargar(10);
-        $tarjeta2->restarViaje();
+        $tarjeta2->restarViaje($colectivo);
         $tarjeta2->avanzarTiempo(86600);
-        $this->assertEquals($tarjeta2->restarViaje(), 1);
+        $this->assertEquals($tarjeta2->restarViaje($colectivo), 1);
         $tarjeta2->avanzarTiempo(86600);
-        $tarjeta2->restarViaje();
-        $this->assertFalse($tarjeta2->restarViaje());
+        $tarjeta2->restarViaje($colectivo);
+        $this->assertFalse($tarjeta2->restarViaje($colectivo));
 
     }
 

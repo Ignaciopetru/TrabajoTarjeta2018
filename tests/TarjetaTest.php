@@ -26,30 +26,32 @@ class TarjetaTest extends TestCase {
     }
 
     public function testCargaPlus(){
+        $colectivo = New Colectivo;
         $tarjeta = new Tarjeta;
 
-        $tarjeta->restarViaje();
-        $tarjeta->restarViaje();
+        $tarjeta->restarViaje($colectivo);
+        $tarjeta->restarViaje($colectivo);
         $this->assertFalse($tarjeta->restarPlus());
         $tarjeta->recargar(50);
         $this->assertEquals($tarjeta->mostrarPlus(), 2);
 
-        $tarjeta->restarViaje();
-        $tarjeta->restarViaje();
+        $tarjeta->restarViaje($colectivo);
+        $tarjeta->restarViaje($colectivo);
         $this->assertEquals($tarjeta->mostrarPlus(), 1);
         $tarjeta->recargar(50);
         $this->assertEquals($tarjeta->mostrarPlus(), 2);
     }
     public function testAbonado(){
+        $colectivo = new Colectivo;
         $tarjeta = new Tarjeta;
 
-        $tarjeta->restarViaje();
-        $tarjeta->restarViaje();
+        $tarjeta->restarViaje($colectivo);
+        $tarjeta->restarViaje($colectivo);
         $tarjeta->recargar(50);
-        $tarjeta->restarViaje();
+        $tarjeta->restarViaje($colectivo);
         $this->assertEquals($tarjeta->abonado(), 14.8/*($tarjeta->obtenerCosto() * 3)*/);
 
-        $tarjeta->restarViaje();
+        $tarjeta->restarViaje($colectivo);
         $tarjeta->recargar(50);
       $this->assertEquals($tarjeta->abonado(), 14.8/*($tarjeta->obtenerCosto() * 2)*/);
     }

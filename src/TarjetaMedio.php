@@ -8,8 +8,8 @@ class TarjetaMedio extends Tarjeta {
   protected $ultimoPago;
   protected $costo = 7.40;
 
-  public function restarviaje(){
-    if(sePuedeTransbordo($colectivo)){
+  public function restarViaje($colectivo){
+    if($this->sePuedeTransbordo($colectivo)){
       $this->costo = $this->costo * 0.77;
       $this->saldo -= $this->costo;
       $this->ultimoColectivo = $colectivo;
@@ -32,6 +32,7 @@ class TarjetaMedio extends Tarjeta {
         return false;
       }
     }
+  }
     public function sePuedePagar(){
       $ahora = $this->obtenerTiempo();
       if(($ahora - $this->ultimoPago) >= 300){
@@ -40,6 +41,5 @@ class TarjetaMedio extends Tarjeta {
         return false;
       }
     }
-  }
 
 }

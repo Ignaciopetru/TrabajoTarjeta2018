@@ -16,8 +16,9 @@ class Tarjeta implements TarjetaInterface {
     protected $ultimoPago;
     protected $feriados = array(0, 41, 42, 91, 120, 144, 167 , 170, 189, 231, 287, 322, 341, 359);
 
-    public function __construct($tiempo = 0) {
-      $this->tiempo = $tiempo;
+    public function __construct() {
+      $this->tiempo = New TiempoFalso;
+      $this->ultimoColectivo = New Colectivo(0,0,0);
     }
 
     // Revisa si el monto a cargar es aceptado
@@ -58,7 +59,7 @@ class Tarjeta implements TarjetaInterface {
     }
 
     public function restarViaje($colectivo){
-      if(sePuedeTransbordo($colectivo)){
+      if($this->sePuedeTransbordo($colectivo)){
         $this->costo = $this->costo * 0.77;
         $this->saldo -= $this->costo;
         $this->ultimoColectivo = $colectivo;
@@ -123,13 +124,11 @@ class Tarjeta implements TarjetaInterface {
           }
       }
 
-      public function sePuedeTransbordo($colectivo){
-          if($colectivo->linea() == $this->ultimoColectivo->linea() && $this->$ultimoTrasbordo == true && $this->saldo < $this->costo){
+    public function sePuedeTransbordo($colectivo){
+          if($colectivo->linea() == $this->ultimoColectivo->linea() && $this->ultimoTrasbordo == true && $this->saldo < $this->costo){
             $dia = date(w, $this->obtenerTiempo());
             $hora = date(G, $this->obtenerTiempo());
-            if($hora < 22 && $hora > 6 && ($this->obtenerTiempo - $this->ultimoPago) < 5400){
-              return true;
-            }
+
             if($dia > 0 && $dia < 6 && $hora > 6 && $hora < 22 && ($this->obtenerTiempo - $this->ultimoPago) < 3600){
                 return true;
             }
@@ -139,10 +138,13 @@ class Tarjeta implements TarjetaInterface {
             if($dia == 6 && $hora > 14 && $hora < 22 && ($this->obtenerTiempo - $this->ultimoPago) < 5400){
               return true;
             }
-            if(($dia == 0 || esFeriado(date(z, $this->obtenerTiempo()));) && $hora > 6 && $hora < 22 && ($this->obtenerTiempo - $this->ultimoPago) < 5400){
+            if(($dia == 0 || esFeriado(date(z, $this->obtenerTiempo())) && $hora > 6 && $hora < 22 && ($this->obtenerTiempo - $this->ultimoPago)) < 5400){
               return true;
             }
-          }
+        }
+        else {
+          return false;
+        }
       }
       protected function esFeriado($dia){
         array_search($dia, $this->feriados) != null;

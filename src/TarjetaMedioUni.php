@@ -9,8 +9,8 @@ class TarjetaMedioUni extends Tarjeta {
   protected $ultimoPagoMedio;
   protected $mediosDisponibles = 2;
   protected $costo = 7.40;
-  public function restarviaje(){
-    if(sePuedeTransbordo($colectivo)){
+  public function restarViaje($colectivo){
+    if($this->sePuedeTransbordo($colectivo)){
       $this->costo = $this->costo * 0.77;
       $this->saldo -= $this->costo;
       $this->ultimoColectivo = $colectivo;

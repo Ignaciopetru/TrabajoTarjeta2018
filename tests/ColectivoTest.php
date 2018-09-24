@@ -29,22 +29,24 @@ class ColectivoTest extends TestCase {
     }
 
     public function testHastaDosPLus() {
+        $colectivo = new Colectivo;
         $tarjeta = new Tarjeta;
         $tarjeta->recargar(20);
-        $tarjeta->restarViaje();
-        $tarjeta->restarViaje();
-        $tarjeta->restarViaje();
-        $this->assertFalse($tarjeta->restarViaje());
+        $tarjeta->restarViaje($colectivo);
+        $tarjeta->restarViaje($colectivo);
+        $tarjeta->restarViaje($colectivo);
+        $this->assertFalse($tarjeta->restarViaje($colectivo));
     }
 
     public function testDescuentoDePLus() {
+        $colectivo = new Colectivo;
         $tarjeta = new Tarjeta;
         $tarjeta->recargar(20);
-        $tarjeta->restarViaje();
+        $tarjeta->restarViaje($colectivo);
         $this->assertEquals($tarjeta->mostrarPlus(), 2);
-        $tarjeta->restarViaje();
+        $tarjeta->restarViaje($colectivo);
         $this->assertEquals($tarjeta->mostrarPlus(), 1);
-        $tarjeta->restarViaje();
+        $tarjeta->restarViaje($colectivo);
         $this->assertEquals($tarjeta->mostrarPlus(), 0);
     }
 
