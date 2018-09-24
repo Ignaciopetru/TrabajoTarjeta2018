@@ -78,6 +78,7 @@ class Tarjeta implements TarjetaInterface {
           return false;
       }
     }
+  }
 
     public function restarPlus(){
       if($this->plus_disponibles != 0){
