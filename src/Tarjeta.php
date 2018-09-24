@@ -58,7 +58,7 @@ class Tarjeta implements TarjetaInterface {
 
     public function restarViaje($colectivo){
       if(sePuedeTransbordo($colectivo)){
-        $this->costo = $this->costo * 1.33
+        $this->costo = $this->costo * 0.77;
         $this->saldo -= $this->costo;
         $this->ultimoColectivo = $colectivo;
         $this->ultimoPago = $this->obtenerTiempo();
