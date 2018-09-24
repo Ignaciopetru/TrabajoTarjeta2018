@@ -11,8 +11,6 @@ class Tarjeta implements TarjetaInterface {
     protected $tipo = 'normal';
     protected $id;
     protected $recarga_plus = 0;//0 no recargo plus, 1 1, 2 2
-    protected $ultimoColectivo;
-    protected $ultimoTrasbordo = false; //true el ultimo fue trasbordo false no
 
     public function __construct($tiempo = 0) {
       $this->tiempo = $tiempo;
@@ -55,22 +53,18 @@ class Tarjeta implements TarjetaInterface {
       return $this->saldo;
     }
 
-    public function restarViaje($colectivo){
-      if(sePuedeTransbordo($colectivo)){
+    public function restarViaje(){
+
         if($this->saldo > $this->costo){
           $this->saldo -= $this->costo;
-          $this->ultimoColectivo = $colectivo;
           return true;
         }else if($this->saldo < $this->costo && $this->plus_disponibles > 0){
           $this->restarPlus();
-          $this->ultimoColectivo = $colectivo;
           return 1;
         }else{
           return false;
         }
-      }else{
 
-      }
     }
 
     public function restarPlus(){
@@ -103,6 +97,17 @@ class Tarjeta implements TarjetaInterface {
       return $this->tiempo->avanzar($tiempo);
     }
 
+
+
+    /*
+    public function obtenerRecargaPlus(){
+      return $this->recarga_plus;
+    }
+    public function resetearRecargaPlus(){
+      $this->recarga_plus = 0;
+    }
+    */
+
     public function abonado(){ //al recargar se llama y calcula el monto total del viaje
         if($this->recarga_plus === 0){
           return $this->costo;
@@ -113,11 +118,5 @@ class Tarjeta implements TarjetaInterface {
           $this->recarga_plus = 0;
           return ($this->costo * 3);
           }
-      }
-
-      public function sePuedeTransbordo($colectivo){
-          return ($colectivo->linea() == $this->ultimoColectivo->linea() && $this->$ultimoTrasbordo == true && $this->saldo < $this->costo && );
-
-
       }
 }
