@@ -13,6 +13,7 @@ class Tarjeta implements TarjetaInterface {
     protected $recarga_plus = 0;//0 no recargo plus, 1 1, 2 2
     protected $ultimoColectivo;
     protected $ultimoTrasbordo = false; //true el ultimo fue trasbordo false no
+    protected $ultimoPago;
 
     public function __construct($tiempo = 0) {
       $this->tiempo = $tiempo;
@@ -57,19 +58,24 @@ class Tarjeta implements TarjetaInterface {
 
     public function restarViaje($colectivo){
       if(sePuedeTransbordo($colectivo)){
+        $this->costo = $this->costo * 1.33
+        $this->saldo -= $this->costo;
+        $this->ultimoColectivo = $colectivo;
+        $this->ultimoPago = $this->obtenerTiempo();
+        return true;
+      }else{
         if($this->saldo > $this->costo){
           $this->saldo -= $this->costo;
           $this->ultimoColectivo = $colectivo;
+          $this->ultimoPago = $this->obtenerTiempo();
           return true;
         }else if($this->saldo < $this->costo && $this->plus_disponibles > 0){
           $this->restarPlus();
           $this->ultimoColectivo = $colectivo;
+          $this->ultimoPago = $this->obtenerTiempo();
           return 1;
         }else{
           return false;
-        }
-      }else{
-
       }
     }
 
@@ -116,7 +122,22 @@ class Tarjeta implements TarjetaInterface {
       }
 
       public function sePuedeTransbordo($colectivo){
-          return ($colectivo->linea() == $this->ultimoColectivo->linea() && $this->$ultimoTrasbordo == true && $this->saldo < $this->costo && );
+          if($colectivo->linea() == $this->ultimoColectivo->linea() && $this->$ultimoTrasbordo == true && $this->saldo < $this->costo){
+            $dia = date(w, $this->obtenerTiempo());
+            $hora = date(G, $this->obtenerTiempo());
+            if($hora < 22 && $hora > 6 && ($this->obtenerTiempo - $this->ultimoPago) < 5400){
+              return true;
+            }
+            if($dia > 0 && $dia < 6 && $hora > 6 && $hora < 22 && ($this->obtenerTiempo - $this->ultimoPago) < 3600){
+                return true;
+            }
+            if($dia == 6 && $hora > 6 && $hora < 14 && ($this->obtenerTiempo - $this->ultimoPago) < 3600){
+              return true;
+            }
+            if($dia == 6 && $hora > 14 && $hora < 22 && ($this->obtenerTiempo - $this->ultimoPago) < 5400){
+              return true;
+            }
+          }
 
 
       }
