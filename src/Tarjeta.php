@@ -14,7 +14,7 @@ class Tarjeta implements TarjetaInterface {
     protected $ultimoColectivo;
     protected $ultimoTrasbordo = false; //true el ultimo fue trasbordo false no
     protected $ultimoPago;
-    protected $feriados = {};
+    protected $feriados = array(0, 41, 42, 91, 120, 144, 167 , 170, 189, 231, 287, 322, 341, 359);
 
     public function __construct($tiempo = 0) {
       $this->tiempo = $tiempo;
