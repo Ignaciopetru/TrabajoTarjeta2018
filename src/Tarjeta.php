@@ -70,6 +70,7 @@ class Tarjeta implements TarjetaInterface {
           $this->saldo -= $this->costo;
           $this->ultimoColectivo = $colectivo;
           $this->ultimoPago = $this->obtenerTiempo();
+          $this->ultimoTrasbordo = True;
           return true;
         }else if($this->saldo < $this->costo && $this->plus_disponibles > 0){
           $this->restarPlus();
@@ -125,9 +126,9 @@ class Tarjeta implements TarjetaInterface {
       }
 
     public function sePuedeTransbordo($colectivo){
-          if($colectivo->linea() == $this->ultimoColectivo->linea() && $this->ultimoTrasbordo == true && $this->saldo < $this->costo){
-            $dia = date(w, $this->obtenerTiempo());
-            $hora = date(G, $this->obtenerTiempo());
+          if($colectivo->linea() != $this->ultimoColectivo->linea() && $this->ultimoTrasbordo == true && $this->saldo < $this->costo){
+            $dia = date('w', $this->obtenerTiempo());
+            $hora = date('G', $this->obtenerTiempo());
 
             if($dia > 0 && $dia < 6 && $hora > 6 && $hora < 22 && ($this->obtenerTiempo - $this->ultimoPago) < 3600){
                 return true;
@@ -138,7 +139,7 @@ class Tarjeta implements TarjetaInterface {
             if($dia == 6 && $hora > 14 && $hora < 22 && ($this->obtenerTiempo - $this->ultimoPago) < 5400){
               return true;
             }
-            if(($dia == 0 || esFeriado(date(z, $this->obtenerTiempo())) && $hora > 6 && $hora < 22 && ($this->obtenerTiempo - $this->ultimoPago)) < 5400){
+            if(($dia == 0 || $this->esFeriado(date('z', $this->obtenerTiempo())) && $hora > 6 && $hora < 22 && ($this->obtenerTiempo - $this->ultimoPago)) < 5400){
               return true;
             }
         }

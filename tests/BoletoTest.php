@@ -19,12 +19,15 @@ class BoletoTest extends TestCase {
         $tarjeta->recargar(30);
         $colectivo = new Colectivo(142, "Metrobus", 3541);
 
+        $tarjeta->avanzarTiempo(5400);
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerTipoTarj(), 'normal');
-
+        
+        $tarjeta->avanzarTiempo(5400);        
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerTipo(), 'normal');
 
+        $tarjeta->avanzarTiempo(5400);
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerTipo(), 'plus');
 
