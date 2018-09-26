@@ -115,6 +115,17 @@ class Tarjeta implements TarjetaInterface {
       return $this->tiempo->avanzar($tiempo);
     }
 
+
+
+    /*
+    public function obtenerRecargaPlus(){
+      return $this->recarga_plus;
+    }
+    public function resetearRecargaPlus(){
+      $this->recarga_plus = 0;
+    }
+    */
+
     public function abonado(){ //al recargar se llama y calcula el monto total del viaje
         if($this->recarga_plus === 0){
           return $this->costo;
