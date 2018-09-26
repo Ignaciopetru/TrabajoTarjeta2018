@@ -11,9 +11,14 @@ class Tarjeta implements TarjetaInterface {
     protected $tipo = 'normal';
     protected $id;
     protected $recarga_plus = 0;//0 no recargo plus, 1 1, 2 2
+    protected $ultimoColectivo;
+    protected $ultimoTrasbordo = false; //true el ultimo fue trasbordo false no
+    protected $ultimoPago;
+    protected $feriados = array(0, 41, 42, 91, 120, 144, 167 , 170, 189, 231, 287, 322, 341, 359);
 
-    public function __construct($tiempo = 0) {
-      $this->tiempo = $tiempo;
+    public function __construct() {
+      $this->tiempo = New TiempoFalso;
+      $this->ultimoColectivo = New Colectivo(0,0,0);
     }
 
     // Revisa si el monto a cargar es aceptado
@@ -53,19 +58,32 @@ class Tarjeta implements TarjetaInterface {
       return $this->saldo;
     }
 
-    public function restarViaje(){
-
+    public function restarViaje($colectivo){
+      $this->costo = 14.80;
+      if($this->sePuedeTransbordo($colectivo)){
+        $this->costo = $this->costo * 0.33;
+        $this->saldo -= $this->costo;
+        $this->ultimoColectivo = $colectivo;
+        $this->ultimoPago = $this->obtenerTiempo();
+        $this->ultimoTrasbordo = False; 
+        return 't';
+      }else{
         if($this->saldo > $this->costo){
           $this->saldo -= $this->costo;
+          $this->ultimoColectivo = $colectivo;
+          $this->ultimoPago = $this->obtenerTiempo();
+          $this->ultimoTrasbordo = True;
           return true;
         }else if($this->saldo < $this->costo && $this->plus_disponibles > 0){
           $this->restarPlus();
-          return 1;
+          $this->ultimoColectivo = $colectivo;
+          $this->ultimoPago = $this->obtenerTiempo();
+          return 'p';
         }else{
           return false;
-        }
-
+      }
     }
+  }
 
     public function restarPlus(){
       if($this->plus_disponibles != 0){
@@ -118,5 +136,31 @@ class Tarjeta implements TarjetaInterface {
           $this->recarga_plus = 0;
           return ($this->costo * 3);
           }
+      }
+
+    public function sePuedeTransbordo($colectivo){
+          if($colectivo->linea() != $this->ultimoColectivo->linea() && $this->ultimoTrasbordo === true && $this->saldo > $this->costo){
+            $dia = date('w', $this->obtenerTiempo());
+            $hora = date('G', $this->obtenerTiempo());
+
+            if($dia > 0 && $dia < 6 && $hora > 6 && $hora < 22 && ($this->obtenerTiempo - $this->ultimoPago) < 3600){
+              return true;
+            }
+            if($dia == 6 && $hora > 6 && $hora < 14 && ($this->obtenerTiempo - $this->ultimoPago) < 3600){
+              return true;
+            }
+            if($dia == 6 && $hora > 14 && $hora < 22 && ($this->obtenerTiempo - $this->ultimoPago) < 5400){
+              return true;
+            }
+            if(($dia == 0 || $this->esFeriado(date('z', $this->obtenerTiempo())) && $hora > 6 && $hora < 22 && ($this->obtenerTiempo - $this->ultimoPago)) < 5400){
+              return true;
+            }
+        }
+        else {
+          return false;
+        }
+      }
+      protected function esFeriado($dia){
+        array_search($dia, $this->feriados) != null;
       }
 }

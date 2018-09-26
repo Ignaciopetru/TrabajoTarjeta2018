@@ -22,7 +22,7 @@ interface TarjetaInterface {
      */
     public function obtenerSaldo();
 
-    public function restarViaje();
+    public function restarViaje($colectivo);
 
     public function obtenerCosto();
 

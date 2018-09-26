@@ -9,34 +9,44 @@ class TarjetaMedioUni extends Tarjeta {
   protected $ultimoPagoMedio;
   protected $mediosDisponibles = 2;
   protected $costo = 7.40;
-  public function restarviaje(){
-    if($this->sePuedePagar() === true){
-      $this->costo = 7.40;
-      if($this->saldo > $this->costo){
-        $this->saldo -= $this->costo;
-        $this->ultimoPago = $this->obtenerTiempo();
-        $this->ultimoPagoMedio = $this->obtenerTiempo();
-        $this->mediosDisponibles -= 1;
-        return true;
-      }else if($this->saldo < $this->costo && $this->plus_disponibles > 0){
-        $this->restarPlus();
-        $this->ultimoPago = $this->obtenerTiempo();
-        return 1;
-      }else {
-        return false;
-      }
+  public function restarViaje($colectivo){
+    if($this->sePuedeTransbordo($colectivo)){
+      $this->costo = $this->costo * 0.77;
+      $this->saldo -= $this->costo;
+      $this->ultimoColectivo = $colectivo;
+      $this->ultimoPago = $this->obtenerTiempo();
+      $this->ultimoTrasbordo = False; 
+      return 't';
     }else{
-      $this->costo = 14.80;
-      if($this->saldo > $this->costo){
-        $this->saldo -= $this->costo;
-        $this->ultimoPago = $this->obtenerTiempo();
-        return true;
-      }else if($this->saldo < $this->costo && $this->plus_disponibles > 0){
-        $this->restarPlus();
-        $this->ultimoPago = $this->obtenerTiempo();
-        return 1;
-      }else {
-        return false;
+      if($this->sePuedePagar() === true){
+        $this->costo = 7.40;
+        if($this->saldo > $this->costo){
+          $this->saldo -= $this->costo;
+          $this->ultimoPago = $this->obtenerTiempo();
+          $this->ultimoPagoMedio = $this->obtenerTiempo();
+          $this->mediosDisponibles -= 1;
+          $this->ultimoTrasbordo = True; 
+          return true;
+        }else if($this->saldo < $this->costo && $this->plus_disponibles > 0){
+          $this->restarPlus();
+          $this->ultimoPago = $this->obtenerTiempo();
+          return 'p';
+        }else {
+          return false;
+        }
+      }else{
+        $this->costo = 14.80;
+        if($this->saldo > $this->costo){
+          $this->saldo -= $this->costo;
+          $this->ultimoPago = $this->obtenerTiempo();
+          return true;
+        }else if($this->saldo < $this->costo && $this->plus_disponibles > 0){
+          $this->restarPlus();
+          $this->ultimoPago = $this->obtenerTiempo();
+          return 1;
+        }else {
+          return false;
+        }
       }
     }
   }
