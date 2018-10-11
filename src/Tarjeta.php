@@ -21,7 +21,14 @@ class Tarjeta implements TarjetaInterface {
       $this->ultimoColectivo = New Colectivo(0,0,0);
     }
 
-    // Revisa si el monto a cargar es aceptado
+    /**
+     *@param float
+     *
+     * Devuelve un bool, en el caso de que el monto se pueda recargar será true (y se recargará), sino false.
+     *
+     * @return bool
+     */
+
     public function recargar($monto) {
       if (in_array($monto, array(10,20,30,50,100))) {
         $this->saldo += $monto;
@@ -50,13 +57,12 @@ class Tarjeta implements TarjetaInterface {
     }
 
     /**
-     * Devuelve el saldo que le queda a la tarjeta.
+     *@param ColectivoInterface
      *
-     * @return float
+     * Descuenta un viaje de ser posible, sino devuelve false. Al restar un viaje, devuelve t si es transbordo, p si es plus, y true si es boleto normal
+     *
+     * @return float, char
      */
-    public function obtenerSaldo() {
-      return $this->saldo;
-    }
 
     public function restarViaje($colectivo){
       $this->costo = 14.80;
@@ -65,7 +71,7 @@ class Tarjeta implements TarjetaInterface {
         $this->saldo -= $this->costo;
         $this->ultimoColectivo = $colectivo;
         $this->ultimoPago = $this->obtenerTiempo();
-        $this->ultimoTrasbordo = False; 
+        $this->ultimoTrasbordo = False;
         return 't';
       }else{
         if($this->saldo > $this->costo){
@@ -85,6 +91,12 @@ class Tarjeta implements TarjetaInterface {
     }
   }
 
+  /**
+   * Devuelve false, si no se pudo restar un viaje plus, sino lo resta.
+   *
+   * @return bool
+   */
+
     public function restarPlus(){
       if($this->plus_disponibles != 0){
         $this->plus_disponibles -= 1;
@@ -93,38 +105,83 @@ class Tarjeta implements TarjetaInterface {
       }
     }
 
-    public function mostrarPlus(){
+    /**
+     * Devuelve la cantidad de plus disponibles de 0 a 2.
+     *
+     * @return int
+     */
+
+    public function obtenerPlus(){
       return $this->plus_disponibles;
     }
+
+    /**
+     * Devuelve el saldo que le queda a la tarjeta.
+     *
+     * @return float
+     */
+
+    public function obtenerSaldo() {
+      return $this->saldo;
+    }
+
+    /**
+     * Devuelve el costo del pasaje.
+     *
+     * @return float
+     */
 
     public function obtenerCosto() {
       return $this->costo;
     }
-    public function mostrarTipo(){
+
+    /**
+     * Devuelve el tipo de la tarjeta.
+     *
+     * @return string
+     */
+
+    public function obtenerTipo(){
       return $this->tipo;
     }
+
+    /**
+     * Devuelve el ID de la tarjeta.
+     *
+     * @return int
+     */
+
     public function obtenerID(){
       return $this->id;
     }
+
+    /**
+     * Devuelve la fecha actual.
+     *
+     * @return date
+     */
 
     public function obtenerTiempo() {
       return $this->tiempo->time();
     }
 
+    /**
+     *@param int
+     *
+     * Avanza el tiempo.
+     *
+     * @return date
+     */
+
     public function avanzarTiempo($tiempo) {
       return $this->tiempo->avanzar($tiempo);
     }
 
-
-
-    /*
-    public function obtenerRecargaPlus(){
-      return $this->recarga_plus;
-    }
-    public function resetearRecargaPlus(){
-      $this->recarga_plus = 0;
-    }
-    */
+    /**
+     * Devuelve el monto abonado en el ultimo pago de boleto.
+     *
+     * @return float
+     */
 
     public function abonado(){ //al recargar se llama y calcula el monto total del viaje
         if($this->recarga_plus === 0){
@@ -137,6 +194,12 @@ class Tarjeta implements TarjetaInterface {
           return ($this->costo * 3);
           }
       }
+
+     /**
+      * Devuelve true en caso de poderse pagar un transbordo y false en el contrario.
+      *
+      * @return bool
+      */
 
     public function sePuedeTransbordo($colectivo){
           if($colectivo->linea() != $this->ultimoColectivo->linea() && $this->ultimoTrasbordo === true && $this->saldo > $this->costo){
@@ -160,6 +223,15 @@ class Tarjeta implements TarjetaInterface {
           return false;
         }
       }
+
+      /**
+       *@param int
+       *
+       * Devuelve true si el dia que se le pasa es un feriado, false en el contrario
+       *
+       * @return bool
+       */
+
       protected function esFeriado($dia){
         array_search($dia, $this->feriados) != null;
       }
