@@ -43,11 +43,11 @@ class ColectivoTest extends TestCase {
         $tarjeta = new Tarjeta;
         $tarjeta->recargar(20);
         $tarjeta->restarViaje($colectivo);
-        $this->assertEquals($tarjeta->mostrarPlus(), 2);
+        $this->assertEquals($tarjeta->obtenerPlus(), 2);
         $tarjeta->restarViaje($colectivo);
-        $this->assertEquals($tarjeta->mostrarPlus(), 1);
+        $this->assertEquals($tarjeta->obtenerPlus(), 1);
         $tarjeta->restarViaje($colectivo);
-        $this->assertEquals($tarjeta->mostrarPlus(), 0);
+        $this->assertEquals($tarjeta->obtenerPlus(), 0);
     }
 
     public function testObtenerInfo(){

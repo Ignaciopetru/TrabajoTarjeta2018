@@ -33,13 +33,13 @@ class TarjetaTest extends TestCase {
         $tarjeta->restarViaje($colectivo);
         $this->assertFalse($tarjeta->restarPlus());
         $tarjeta->recargar(50);
-        $this->assertEquals($tarjeta->mostrarPlus(), 2);
+        $this->assertEquals($tarjeta->obtenerPlus(), 2);
 
         $tarjeta->restarViaje($colectivo);
         $tarjeta->restarViaje($colectivo);
-        $this->assertEquals($tarjeta->mostrarPlus(), 1);
+        $this->assertEquals($tarjeta->obtenerPlus(), 1);
         $tarjeta->recargar(50);
-        $this->assertEquals($tarjeta->mostrarPlus(), 2);
+        $this->assertEquals($tarjeta->obtenerPlus(), 2);
     }
     public function testAbonado(){
         $colectivo = new Colectivo;
