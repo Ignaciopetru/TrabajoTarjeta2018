@@ -25,6 +25,10 @@ class TarjetaTest extends TestCase {
         $this->assertEquals($tarjeta->obtenerSaldo(), 1806.25);
     }
 
+    /**
+     * Comprueba que al realizar una recarga luego de haber utilizado los viajes plus, estos vuelvan a su valor inicial.
+     */
+    
     public function testCargaPlus(){
         $colectivo = New Colectivo;
         $tarjeta = new Tarjeta;
@@ -41,6 +45,10 @@ class TarjetaTest extends TestCase {
         $tarjeta->recargar(50);
         $this->assertEquals($tarjeta->obtenerPlus(), 2);
     }
+
+    /**
+     * Comprueba que el monto abonado por la tarjeta es el correcto.
+     */
     public function testAbonado(){
         $colectivo = new Colectivo;
         $tarjeta = new Tarjeta;

@@ -6,7 +6,9 @@ use PHPUnit\Framework\TestCase;
 
 class ColectivoTest extends TestCase {
 
-
+    /**
+     * Comprueba que siempre es posible pagar con la tarjeta, se cuentan los dos viajes plus.
+     */
     public function testlibreSiempreLibre() {
         $f = 0;
         $tarjeta = new TarjetaLibre;
@@ -19,6 +21,9 @@ class ColectivoTest extends TestCase {
         $this->assertEquals($f, 8);
     }
 
+     /**
+     * Comprueba que el costo del viaje de la tarjeta del tipo medio sea el correspondiente.
+     */
     public function testMedioSiempreMedio() {
         $tiempo = new TiempoFalso;
         $tarjeta = new TarjetaMedio($tiempo);
@@ -28,6 +33,9 @@ class ColectivoTest extends TestCase {
         $this->assertEquals($colectivo->pagarCon($tarjeta)->obtenerValor(), 14.80/2);
     }
 
+    /**
+     * Comprueba que efectivamente se puedan utilizar dos viajes plus.
+     */
     public function testHastaDosPLus() {
         $colectivo = new Colectivo;
         $tarjeta = new Tarjeta;
@@ -38,6 +46,9 @@ class ColectivoTest extends TestCase {
         $this->assertFalse($tarjeta->restarViaje($colectivo));
     }
 
+    /**
+     * Comprueba que se descuenten correctamente los viajes plus.
+     */
     public function testDescuentoDePLus() {
         $colectivo = new Colectivo;
         $tarjeta = new Tarjeta;
@@ -50,6 +61,9 @@ class ColectivoTest extends TestCase {
         $this->assertEquals($tarjeta->obtenerPlus(), 0);
     }
 
+    /**
+     * Comprueba que el tipo del boleto sea libre al utilizar una tarjeta del tipo libre.
+     */
     public function testObtenerInfo(){
         $colectivo = new Colectivo(142, 'rosario bus', 55);
         $this->assertEquals($colectivo->empresa(), 'rosario bus');

@@ -6,6 +6,9 @@ use PHPUnit\Framework\TestCase;
 
 class BoletoTest extends TestCase {
 
+    /**
+     * Comprueba que es posible tener saldo cero.
+     */
     public function testSaldoCero() {
         $tarjeta = new Tarjeta;
         $colectivo = new Colectivo;
@@ -14,6 +17,10 @@ class BoletoTest extends TestCase {
         $this->assertEquals($boleto->obtenerValor(), $tarjeta->obtenerCosto());
     }
 
+    /**
+     * Comprueba que el tipo de boleto es normal cuando se tiene el saldo suficiente.
+     * Ademas de que cada funcion para obtener la informacion del boleto funcione correctamente.
+     */
     public function testBoletoNormal() {
         $tarjeta = new Tarjeta;
         $tarjeta->recargar(30);
@@ -38,6 +45,11 @@ class BoletoTest extends TestCase {
         $this->assertEquals($boleto->obtenerIDTarj(), $tarjeta->obtenerID());
     }
 
+    /**
+     * Comprueba que tipo de boleto sea medio al utilizar una tarjeta del tipo medio.
+     * Tambien verifica si el tiempo limite funciona correctamente, en cuyo caso que se haya pagado
+     * otro boleto dentro de los 5 minutos, su tipo sera normal.
+     */
     public function testBoletoMedio() {
         $tiempo = new TiempoFalso;
         $tarjeta = new TarjetaMedio($tiempo);
@@ -54,6 +66,10 @@ class BoletoTest extends TestCase {
         $this->assertEquals($boleto->obtenerTipo(), 'plus');
     }
 
+    /**
+     * Comprueba que el tipo de boleto sea medio al utilizar una tarjeta de tipo medio universitario.
+     * Ademas comprueba que funcione el limite de dos boletos medio por dia.
+     */
     public function testBoletoMedioUni() {
         $tiempo = new TiempoFalso;
         $tarjeta = new TarjetaMedioUni($tiempo);
@@ -90,6 +106,9 @@ class BoletoTest extends TestCase {
 
     }
 
+    /**
+     * Comprueba que el tipo del boleto sea libre al utilizar una tarjeta del tipo libre.
+     */
     public function testBoletoLibre() {
         $tarjeta = new TarjetaLibre;
         $tarjeta->recargar(30);
@@ -99,6 +118,9 @@ class BoletoTest extends TestCase {
         $this->assertEquals($boleto->obtenerTipo(), 'normal');
     }
 
+    /**
+     * Comprueba que funcione el limite de un boleto medio cada 5 minutos
+     */
     public function testLimiteCinco() {
         $tiempo = new TiempoFalso;
         $tarjeta = new TarjetaMedio($tiempo);
