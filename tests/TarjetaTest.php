@@ -74,6 +74,9 @@ class TarjetaTest extends TestCase {
       $this->assertEquals($tarjeta->obtenerSaldo(), 0);
     }
 
+    /**
+     * Comprueba que es posible obtener el boleto de tipo trasbordo.
+     */
     public function testTrasbordo() {
         $tarjeta = new Tarjeta;
         $tarjeta->recargar(50);

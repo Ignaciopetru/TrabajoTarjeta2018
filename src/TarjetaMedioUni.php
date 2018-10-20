@@ -50,6 +50,9 @@ class TarjetaMedioUni extends Tarjeta {
       }
     }
   }
+    /**
+     *  Determina si es posible realizar un pago dependiendo de los limites propuestos.
+     */
   public function sePuedePagar(){
     $ahora = $this->obtenerTiempo();
     if(date('d', $ahora) == (date('d', $this->ultimoPagoMedio) + 1)) {
