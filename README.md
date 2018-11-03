@@ -2,6 +2,8 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/Ignaciopetru/TrabajoTarjeta2018/badge.svg?branch=master)](https://coveralls.io/github/Ignaciopetru/TrabajoTarjeta2018?branch=master)
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Ignaciopetru/TrabajoTarjeta2018/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Ignaciopetru/TrabajoTarjeta2018/?branch=master)
+
 # Grupo: Joel Torboli e Ignacio Petruskevicius
 
 
