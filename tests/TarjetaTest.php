@@ -92,6 +92,16 @@ class TarjetaTest extends TestCase {
         $this->assertEquals($boleto->obtenerTipo(), "normal");
 
     }
+        public function testTrasbordoMedio() {
+        $tarjeta = new TarjetaMedio;
+        $tarjeta->recargar(50);
+        $colectivo = new Colectivo(145, "Metrobus", 4825);
+        $boleto = $colectivo->pagarCon($tarjeta);
+        $colectivo = new Colectivo(456, "Rosariobus", 1234);
+        $boleto = $colectivo->pagarCon($tarjeta);
+
+        $this->assertEquals($boleto->obtenerTipo(), "trasbordo");
+    }
 
 
 }
