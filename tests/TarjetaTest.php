@@ -10,12 +10,12 @@ class TarjetaTest extends TestCase {
     * Comprueba que es posible pagar un viaje sin tener saldo
     */
     
-    public function testPagarSaldoCero {
+    public function testPagarSaldoCero() {
         $tarjeta = new Tarjeta;
         $colectivo = New Colectivo;
         $boleto = $colectivo->pagarCon($tarjeta);
         
-        $this->assertEquals($boleto->obtenerTipo(), "plus")
+        $this->assertEquals($boleto->obtenerTipo(), "plus");
     }
 
     /**
