@@ -87,7 +87,7 @@ class TarjetaTest extends TestCase {
     }
 
     /**
-     * Comprueba que es posible obtener el boleto de tipo trasbordo.
+     * Comprueba que es posible obtener el boleto de tipo trasbordo para cada tipo.
      */
     public function testTrasbordo() {
         $tarjeta = new Tarjeta;
@@ -104,12 +104,28 @@ class TarjetaTest extends TestCase {
         $this->assertEquals($boleto->obtenerTipo(), "normal");
 
     }
-        public function testTrasbordoMedio() {
+
+    public function testTrasbordoMedio() {
         $tarjeta = new TarjetaMedio;
         $tarjeta->recargar(50);
         $colectivo = new Colectivo(145, "Metrobus", 4825);
+        $tarjeta->avanzarTiempo(300);
         $boleto = $colectivo->pagarCon($tarjeta);
         $colectivo = new Colectivo(456, "Rosariobus", 1234);
+        $tarjeta->avanzarTiempo(300);
+        $boleto = $colectivo->pagarCon($tarjeta);
+
+        $this->assertEquals($boleto->obtenerTipo(), "trasbordo");
+    }
+
+    public function testTrasbordoMedioUni() {
+        $tarjeta = new TarjetaMedioUni;
+        $tarjeta->recargar(50);
+        $colectivo = new Colectivo(145, "Metrobus", 4825);
+        $tarjeta->avanzarTiempo(300);
+        $boleto = $colectivo->pagarCon($tarjeta);
+        $colectivo = new Colectivo(456, "Rosariobus", 1234);
+        $tarjeta->avanzarTiempo(300);
         $boleto = $colectivo->pagarCon($tarjeta);
 
         $this->assertEquals($boleto->obtenerTipo(), "trasbordo");
