@@ -7,14 +7,19 @@ use PHPUnit\Framework\TestCase;
 class TarjetaTest extends TestCase {
     
     /**
-    * Comprueba que es posible pagar un viaje sin tener saldo
+    * Comprueba que es posible pagar un viaje con y sin tener saldo
     */
     
-    public function testPagarSaldoCero() {
+    public function testPagarSaldo() {
         $tarjeta = new Tarjeta;
-        $colectivo = New Colectivo;
+        $colectivo = New Colectivo(145, "Metrobus", 4825);
+
+        $tarjeta->recargar(20);
         $boleto = $colectivo->pagarCon($tarjeta);
-        
+        $this->assertEquals($boleto->obtenerTipo(), "normal");
+
+        $tarjeta = new Tarjeta;
+        $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerTipo(), "plus");
     }
 
